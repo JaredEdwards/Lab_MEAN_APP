@@ -1,0 +1,13 @@
+
+<h1>Better Crocker Recipe Manager(index.hbs)</h1>
+
+{{#each recipes}}
+<h2><a href="/recipes/:recipe" >{{this.recipe}}</a></h2>
+  <a href="/recipes/{{this.recipe}}/delete">delete</a>
+  {{#each ingredients}}
+  <li>
+    <!-- {{@index}} -->
+    {{this}}
+  </li>
+  {{/each}}
+{{/each}}
