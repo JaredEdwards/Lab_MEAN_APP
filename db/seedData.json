@@ -1,0 +1,27 @@
+[
+{
+  "Recipe": "Chocoloate Chip Cookies",
+  "ingredients": [
+    "butter", "salt", "chocolate chips"
+  ]
+},
+{
+  "Recipe": "Chocoloate Chocolate Chip Cookies",
+  "ingredients": [
+    "butter", "salt", "chocolate chips", "cocoa powder"
+  ]
+},
+{
+  "Recipe": "Burgers",
+  "ingredients": [
+    "buns", "patty", "ketchup", "mayo", "pickles", "cheese"
+  ]
+},
+{
+  "Recipe": "Hot Dog",
+  "ingredients": [
+    "buns", "hotdog", "ketchup", "mustard"
+  ]
+}
+
+]
