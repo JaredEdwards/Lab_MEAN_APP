@@ -9,14 +9,18 @@ const app = express();
 //this needs to be removed once angular replaces it
 app.set("port", process.env.PORT || 3001)
 app.set('view engine', 'hbs')
+app.use('/assets', express.static("public"))
 app.use(parser.urlencoded({
     extended: true
 }))
-app.use(parser.json({ extended: true}))
-
-app.listen(3000, _ => {
-    console.log("Express is started on port 3000");
+app.listen(app.get('port'), _ => {
+    console.log(`Express is started on ${app.get('port')}`);
 });
+app.use(parser.json({
+    extended: true
+}))
+
+
 
 // Welcome page and add one form
 app.get('/', (req, res) => {
@@ -73,3 +77,8 @@ app.delete('/api/recipes/:recipe', (req, res) => {
         res.json('/recipes')
     })
 })
+
+app.get("/*", (req, res) => {
+    res.render("Recipes")
+})
+

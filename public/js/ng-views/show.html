@@ -1,0 +1,14 @@
+<div ng-if="!vm.recipe">
+  <h2>That Recipe was destroyed</h2>
+</div>
+
+<div ng-if="vm.recipe">
+  <h2>{{vm.recipe.recipe}} Ingredients: {{vm.recipe.ingredients}}!</h2>
+
+  <div class="edit-recipe">
+    <input type="text" ng-model="vm.recipe.recipe" placeholder="recipe[recipe.recipe]" />
+    <input type="text" ng-model="vm.recipe.ingredients" placeholder="recipe[ingredients]" />
+    <button data-ng-click="vm.update()">Edit Recipe</button>
+    <button data-ng-click="vm.destroy()">Delete</button>
+  </div>
+</div>

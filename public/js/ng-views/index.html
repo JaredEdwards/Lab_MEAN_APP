@@ -1,0 +1,14 @@
+<h2>{{vm.recipes.length}} recipes</h2>
+
+<div class="recipes">
+  <h3 data-ng-repeat="recipe in vm.recipes">
+    <a data-ui-sref="show({recipe: recipe.recipe})">{{recipe.recipe}} and {{recipe.ingredients}}</a>
+  </h2>
+</div>
+
+<form ng-submit="vm.create()">
+  <input type="text" ng-model="vm.newRecipe.recipe" placeholder="RecipeName" />
+  <input  type="text" ng-model="vm.newRecipe.ingredients" placeholder="ingredients" /> 
+  
+  <button type="submit">Add a new Recipe</button>
+</form>

@@ -1,12 +1,20 @@
-<h1>This is our home page welcome </h1>
-<div>
-  <a href='/recipes'>Check out our recipes</a>
-</div>
-<br /><br /><br /><br />
-<div>
-  <form action="/recipes" method="post">
-  <input type="text" name="recipe[name]" placeholder="Recipe">
-  <input type="text" name="recipe[ingredients]" placeholder="ingredient">
-  <input type="submit" value="Add recipe">
-</form>
-</div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.2/angular-resource.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+    <script src="/assets/js/app.js"></script>
+
+
+
+    
+    <div data-ng-app="labApp">
+    <h2><a ui-sref="index">Click here to see all recipes</a></h2>
+    <main data-ui-view></main>
+    
+        
+    </div>
+
+    
+</body>
+
+</html>

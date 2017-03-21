@@ -5,6 +5,7 @@ angular
     ])
     .config([
         "$stateProvider",
+        "$urlRouterProvider",
         Router
     ])
     .factory("Recipe", [
@@ -12,15 +13,19 @@ angular
         Recipe
     ])
     .controller("indexController", [
-    	"Recipe",
-    	indexControllerFunction
-    	])
+        "$state",
+        "Recipe",
+        indexControllerFunction
+    ])
     .controller("showController", [
-    	"$stateParams"
-    	"Recipe",
-    	showControllerFunction])
+        "$state",
+        "$stateParams",
+        "Recipe",
+        showControllerFunction
+    ])
 
-function Router($stateProvider) {
+function Router($stateProvider, $urlRouterProvider) {
+    // $locationProvider.html5Mode(true)
     $stateProvider
         .state("welcome", {
             url: "/",
@@ -38,18 +43,44 @@ function Router($stateProvider) {
             controller: "showController",
             controllerAs: "vm"
         })
+    $urlRouterProvider.otherwise("/")
 }
 
-function Recipe ($resource) {
+function Recipe($resource) {
     return $resource("/api/recipes/:recipe", {}, {
-    	update: {method: "PUT"}
+        update: {
+            method: "PUT"
+        }
     })
 
 }
-function indexControllerFunction( Recipe ) {
-	this.recipes = Recipe.query()
+
+function indexControllerFunction($state, Recipe) {
+    this.recipes = Recipe.query()
+    this.newRecipe = new Recipe()
+    this.create = function() {
+        this.newRecipe.$save().then((recipe) => {
+            $state.go("show", {
+                recipe: recipe.recipe
+            })
+        })
+    }
 }
 
-function showControllerFunction( $stateParams, Recipe) {
-	this.recipe = Recipe.find($)
+function showControllerFunction($state, $stateParams, Recipe) {
+    this.recipe = Recipe.get({
+        recipe: $stateParams.recipe
+    })
+    this.update = function() {
+        this.recipe.$update({
+            recipe: $stateParams.recipe
+        })
+    }
+    this.destroy = function() {
+        this.recipe.$delete({
+            recipe: $stateParams.recipe
+        }).then(_ => {
+            $state.go("index")
+        })
+    }
 }
