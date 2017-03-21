@@ -16,12 +16,13 @@ app.listen(3000, _ => {
     console.log("Express is started on port 3000");
 });
 
+// Welcome page and add one form
 app.get('/', (req, res) => {
     Recipe.find({}, (err, recipes) => {
         res.render('welcome');
     });
 });
-
+// index or GET all recipes
 app.get('/recipes', (req, res) => {
     Recipe.find({}, (err, recipes) => {
         res.render('recipes', {
@@ -29,9 +30,11 @@ app.get('/recipes', (req, res) => {
         });
     });
 });
-
+//POST method to create new
 app.post('/recipes', (req, res) => {
-    let ingredients = req.body.recipe.ingredients.split(' ')
+    let ingredients = req.body.recipe.ingredients;
+    ingredients.trim(' ');
+    ingredients.split(' ');
     const newRecipe = {
         recipe: req.body.recipe.name,
         ingredients: ingredients
@@ -41,22 +44,30 @@ app.post('/recipes', (req, res) => {
     });
 });
 
+// needs to be a get request for a 'show' view
 app.get('/recipes/:recipe', (req, res) => {
     Recipe.findOne({
         recipe: req.params.recipe
-    }, (err, recipe) => {
-        res.redirect('/recipes/:recipe')
+    }).then((recipe) => {
+        res.render('recipe', {
+            recipe: recipe
+        });
+    });
+});
+
+// need to get individual show to work to get this to work
+app.post('/recipes/:recipe', (req, res) => {
+    // console.log(req.body.recipe.ingredients);
+    Recipe.findOneAndUpdate({
+        recipe: req.body.recipe.name
+    }, req.body.recipe, {
+        new: true
+    }).then((recipe) => {
+        res.redirect(`/recipes/${recipe.recipe}`)
     })
 })
-// < ---------->
-// app.get("/candidates/:name", function(req, res){
-//   Candidate.findOne({name: req.params.name}).then(function(candidate){
-//     res.render("candidates-show", {
-//       candidate: candidate
-//     });
-//   });
-// });
-// < ---------->
+
+//delete individual recipes
 app.get('/recipes/:recipe/delete', (req, res) => {
     Recipe.remove({
         recipe: req.params.recipe

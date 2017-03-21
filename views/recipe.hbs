@@ -1,0 +1,15 @@
+{{#unless recipe}}
+<h2> Sorry we dont have that recipe</h2>
+{{else}}
+<h2>{{recipe.recipe}}</h2>
+
+
+<form action="/recipes/{{recipe.recipe}}" method="post">
+  <input type="text" name="recipe[name]" placeholder="Recipe name" value="{{recipe.recipe}}" />
+  <br />
+{{#each recipe.ingredients}}
+  <input type='text' name='recipe.ingredient[@index]' placeholder="Ingredient" value='{{this}}' />
+{{/each}}
+  <button type="submit">Edit this recipe</button>
+</form>
+{{/unless}}
